@@ -1,0 +1,16 @@
+
+uv python install 3.14
+
+uv init --python 3.14
+
+# Make required Directories
+md backend\api backend\rag backend\agent backend\config backend\logger backend\exceptions backend\tests
+md frontend\src
+
+
+
+# Create __init__.py file is a special file used in Python to mark a directory on your computer as an importable Python package
+for %i in (api rag agent config logger exceptions) do type nul > backend\%i\__init__.py
+for %i in (src) do type nul > frontend\%i\__init__.py
+
+
