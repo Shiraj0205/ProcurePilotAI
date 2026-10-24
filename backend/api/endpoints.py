@@ -2,9 +2,7 @@ import os
 import platform
 import sys
 from fastapi import APIRouter
-
 from config.settings import settings
-
 
 
 health_router = APIRouter(prefix="/api", tags=["Health"])

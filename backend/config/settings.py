@@ -32,6 +32,8 @@ class Settings(BaseSettings):
         extra= "ignore"
     )
 
+    local_embedding_model_name: str = Field("gemini-embedding-001", validation_alias="LOCAL_EMBEDDING_MODEL_NAME")
+    embedding_dimensions: int = 768
 
 settings = Settings()
 
