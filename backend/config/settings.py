@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     llm_model_name: str = Field("gpt-4", validation_alias="LLM_MODEL_NAME")
     llm_temperature: float = Field(0, validation_alias="LLM_TEMPERATURE")
 
+    chroma_collection_name: str = Field("procurement_pilot_ai", validation_alias="CHROMA_COLLECTION_NAME")
+    local_data_dir: str = Field(str(PROJECT_ROOT / ".procurement_data"), validation_alias="LOCAL_DATA_DIR")
+
     model_config = SettingsConfigDict(
         env_file=str(PROJECT_ROOT / ".env"), 
         env_file_encoding="utf-8",
@@ -37,3 +40,19 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
+
+@property
+def chroma_directory(self) -> str:
+    """Get the local vector store path based on the settings."""
+    if self.app_mode == "local":
+        return str(Path(self.local_data_dir) / "chroma")
+    else:
+        raise ValueError("Local vector store path is only available in local mode.")
+
+@property
+def local_upload_dir(self) -> str:
+    """Get the local vector store path based on the settings."""
+    if self.app_mode == "local":
+        return str(Path(self.local_data_dir) / "uploads")
+    else:
+        raise ValueError("Local vector store path is only available in local mode.")
