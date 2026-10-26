@@ -1,7 +1,12 @@
+
+# --- Web API ---
 fastapi==0.135.1
 uvicorn==0.41.0
+python-multipart==0.0.22        # needed for file uploads
 pydantic==2.12.5
-pydantic-settings==2.15.0
+pydantic-settings==2.15.0       # reads settings from .env
+structlog==26.1.0               # structured (JSON) logging
+requests==2.34.2                # live FX rate lookup
 
 # --- LangChain v1 ---
 langchain==1.2.11               # create_agent + agent middleware

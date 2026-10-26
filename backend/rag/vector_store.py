@@ -18,3 +18,11 @@ def _local_vector_store() -> VectorStore:
         embedding_function=get_embedding_model(),
         persist_directory=settings.local_vector_store_path
     )
+
+@lru_cache(maxsize=1)
+def get_vector_store() -> VectorStore:
+    """Get the vector store instance based on the settings."""
+    if settings.app_mode == "local":
+        return _local_vector_store()
+    else:
+        raise LLMNotConfiguredException("Vector store is only available in local mode.")
