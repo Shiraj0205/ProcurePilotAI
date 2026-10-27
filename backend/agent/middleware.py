@@ -34,7 +34,7 @@ from logger import GLOBAL_LOGGER as logger
 
 @wrap_tool_call
 def log_tool_calls(request, handler):
-    """Log tool calls for monitoring and debugging."""
+    """Custom Middleware - Log tool calls for monitoring and debugging."""
     tool_name = request.tool_call["name"]
     logger.info(f"Tool call started: {tool_name}")
     started_at = time.perf_counter()
@@ -49,6 +49,7 @@ def log_tool_calls(request, handler):
              duration_ms=round((time.perf_counter() - started_at) * 1000),
              preview=str(getattr(result, "content", result))[:200])
     return result
+
 
 def build_agent_middleware() -> list[AgentMiddleware]:
     """Build the middleware stack for the specialist agents.""" 

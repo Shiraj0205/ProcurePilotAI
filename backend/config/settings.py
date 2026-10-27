@@ -42,21 +42,25 @@ class Settings(BaseSettings):
     agent_max_tool_calls: int = Field(5, validation_alias="AGENT_MAX_TOOL_CALLS")
     agent_max_retries: int = Field(2, validation_alias="AGENT_MAX_RETRIES")
 
+    @property
+    def chroma_dir(self) -> str:
+        """Get the local vector store path based on the settings."""
+        if self.app_mode == "local":
+            return str(Path(self.local_data_dir) / "chroma")
+        else:
+            raise ValueError("Local vector store path is only available in local mode.")
+
+    @property
+    def local_upload_dir(self) -> str:
+        """Get the local vector store path based on the settings."""
+        if self.app_mode == "local":
+            return str(Path(self.local_data_dir) / "uploads")
+        else:
+            raise ValueError("Local vector store path is only available in local mode.")
+
+    @property
+    def is_cloud(self) -> bool:
+        return self.app_mode == "cloud"
+
+
 settings = Settings()
-
-
-@property
-def chroma_directory(self) -> str:
-    """Get the local vector store path based on the settings."""
-    if self.app_mode == "local":
-        return str(Path(self.local_data_dir) / "chroma")
-    else:
-        raise ValueError("Local vector store path is only available in local mode.")
-
-@property
-def local_upload_dir(self) -> str:
-    """Get the local vector store path based on the settings."""
-    if self.app_mode == "local":
-        return str(Path(self.local_data_dir) / "uploads")
-    else:
-        raise ValueError("Local vector store path is only available in local mode.")
