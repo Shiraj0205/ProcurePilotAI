@@ -4,3 +4,6 @@ backend/config/__pycache__/
 .env
 backend/rag/__pycache__/
 backend/exceptions/__pycache__/
+backend/logs/
+backend/agent/__pycache__/
+backend/logger/__pycache__/

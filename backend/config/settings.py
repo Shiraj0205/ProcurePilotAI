@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     local_embedding_model_name: str = Field("gemini-embedding-001", validation_alias="LOCAL_EMBEDDING_MODEL_NAME")
     embedding_dimensions: int = 768
 
+    agent_max_model_calls: int = Field(8, validation_alias="AGENT_MAX_MODEL_CALLS")
+    agent_max_tool_calls: int = Field(5, validation_alias="AGENT_MAX_TOOL_CALLS")
+    agent_max_retries: int = Field(2, validation_alias="AGENT_MAX_RETRIES")
+
 settings = Settings()
 
 
