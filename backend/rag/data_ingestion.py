@@ -20,13 +20,13 @@ CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 100
 
 
-def split_into_chunks(document: Document) -> list[Document]:
+def split_into_chunks(pages: list[Document]) -> list[Document]:
     """Split a document into smaller chunks using RecursiveCharacterTextSplitter."""
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
         chunk_overlap=CHUNK_OVERLAP
     )
-    return text_splitter.split_documents([document])
+    return text_splitter.split_documents(pages)
 
 
 def _chunk_id(chunk: Document, position: int) -> str:

@@ -19,3 +19,6 @@ langgraph==1.1.6                # engine behind create_agent (installed for you;
 # --- Local mode (APP_MODE=local) ---
 langchain-chroma==1.1.0         # Chroma vector store on disk
 chromadb==1.5.9
+
+# --- PDF reading ---
+pypdf==6.7.5

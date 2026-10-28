@@ -7,3 +7,6 @@ backend/exceptions/__pycache__/
 backend/logs/
 backend/agent/__pycache__/
 backend/logger/__pycache__/
+logs/
+.procurement_data/
+validations/__pycache__/

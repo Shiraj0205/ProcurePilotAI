@@ -14,3 +14,10 @@ for %i in (api rag agent config logger exceptions) do type nul > backend\%i\__in
 for %i in (src) do type nul > frontend\%i\__init__.py
 
 
+# To Run api.main app
+uv run uvicorn api.main:app --app-dir backend --port 8001
+
+
+
+# CURL Commands to Test API's
+curl -X POST http://localhost:8080/api/rag/upload -F "files=@sample_docs/ravenholt_procurement_policy.pdf"
