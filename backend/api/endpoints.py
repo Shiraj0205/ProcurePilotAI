@@ -120,7 +120,7 @@ def run_audit(request: AuditRequest) -> AuditResponse:
 # ---------------------------------------------------------------------------
 # RAG
 # ---------------------------------------------------------------------------
-@rag_router.post("ask", response_model=QueryResponse)
+@rag_router.post("/ask", response_model=QueryResponse)
 def rag_query(request: QueryRequest) -> QueryResponse:
     """Ask question, response will be retrieved from indexed documents
 

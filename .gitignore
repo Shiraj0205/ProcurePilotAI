@@ -10,3 +10,4 @@ backend/logger/__pycache__/
 logs/
 .procurement_data/
 validations/__pycache__/
+backend/tests/__pycache__/

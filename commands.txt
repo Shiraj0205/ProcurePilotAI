@@ -19,5 +19,20 @@ uv run uvicorn api.main:app --app-dir backend --port 8001
 
 
 
-# CURL Commands to Test API's
-curl -X POST http://localhost:8080/api/rag/upload -F "files=@sample_docs/ravenholt_procurement_policy.pdf"
+# CURL Commands to Test API's - Powershell
+    curl -X POST http://localhost:8080/api/rag/upload -F "files=@sample_docs/ravenholt_procurement_policy.pdf"
+    curl -X POST http://localhost:8080/api/rag/upload -F "files=@pyproject.toml"
+
+    curl.exe -X POST http://localhost:8080/api/rag/ask -H "Content-Type: application/json" -d '{\"query\": \"What payment terms do servo motor suppliers get?\"}'
+
+
+
+# See Logs
+    ls Logs
+    Get-Content (Get-ChildItem logs | Sort-Object LastWriteTime | Select-Object -Last 1).FullName -Tail 3
+    (Select-String -Path logs\*.log -Pattern "GET /api/health").Count
+    Select-String -Path logs\*.log -Pattern '"severity": "ERROR"'
+
+
+# Run tests
+    uv run pytest backend/tests
