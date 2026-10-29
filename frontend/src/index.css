@@ -1,26 +1,271 @@
-:root {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  color: #1f2937;
-  background: #f9fafb;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    --background: 220 33% 98%;
+    --foreground: 224 32% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 32% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 32% 12%;
+
+    --primary: 161 94% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 25% 95%;
+    --secondary-foreground: 224 32% 16%;
+
+    --muted: 220 22% 95%;
+    --muted-foreground: 220 12% 44%;
+
+    --accent: 248 75% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 18% 89%;
+    --input: 220 18% 86%;
+    --ring: 161 94% 30%;
+
+    --radius: 0.75rem;
+
+    --success: 161 94% 30%;
+    --success-bg: 161 94% 30%;
+    --warning: 32 95% 44%;
+    --warning-bg: 32 95% 44%;
+    --info: 248 75% 58%;
+    --info-bg: 248 75% 58%;
+    --danger: 0 72% 50%;
+    --danger-bg: 0 72% 50%;
+
+    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 224 32% 12%;
+    --sidebar-primary: 161 94% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 25% 95%;
+    --sidebar-accent-foreground: 224 32% 16%;
+    --sidebar-border: 220 18% 89%;
+    --sidebar-ring: 161 94% 30%;
+  }
 }
 
-body {
-  margin: 0;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+      radial-gradient(1200px 600px at 85% -10%, hsl(var(--accent) / 0.07), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, hsl(var(--primary) / 0.06), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.18);
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring) / 0.7);
+    outline-offset: 2px;
+  }
 }
 
-.container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
 }
 
-.card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.error {
-  color: #b91c1c;
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes progress-glow {
+  0%, 100% { box-shadow: 0 0 4px hsl(var(--primary) / 0.2); }
+  50% { box-shadow: 0 0 10px hsl(var(--primary) / 0.4); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.4s ease-out;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--accent)) 50%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-progress-glow {
+  animation: progress-glow 2s ease-in-out infinite;
+}
+
+/* Scrollbar */
+* { scrollbar-width: thin; scrollbar-color: hsl(var(--border)) transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--muted-foreground) / 0.5); }
+
+/* ------------------------------------------------------------------ */
+/* Modern surface styling — targets existing class names, no markup    */
+/* changes required.                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Sidebar: frosted panel with a soft edge shadow */
+aside {
+  border-right-color: hsl(var(--border) / 0.8);
+  box-shadow: 1px 0 24px -12px hsl(224 32% 20% / 0.12);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+aside nav button {
+  transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+
+aside nav button[class*="bg-primary/10"] {
+  background-image: linear-gradient(90deg, hsl(var(--primary) / 0.10), hsl(var(--primary) / 0.02));
+  box-shadow: inset 0 0 0 1px hsl(var(--primary) / 0.16);
+}
+
+/* Active-tab indicator bar glow */
+aside nav button > span[class~="absolute"] {
+  box-shadow: 0 0 10px hsl(var(--primary) / 0.45);
+}
+
+/* Cards: crisp border, layered soft shadow */
+[class~="bg-card"][class~="border"] {
+  border-color: hsl(var(--border));
+  box-shadow:
+    0 1px 2px hsl(224 32% 20% / 0.05),
+    0 12px 32px -18px hsl(224 32% 20% / 0.18);
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+}
+
+[class~="bg-card"][class~="border"][class*="hover:shadow"]:hover {
+  border-color: hsl(var(--primary) / 0.3);
+  box-shadow:
+    0 1px 2px hsl(224 32% 20% / 0.06),
+    0 20px 40px -18px hsl(224 32% 20% / 0.25),
+    0 0 0 1px hsl(var(--primary) / 0.08);
+}
+
+/* Drop zones: tinted fill that reacts on hover */
+[class~="border-dashed"][class~="rounded-xl"] {
+  background-image: radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.05), transparent 70%);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+[class~="border-dashed"][class~="rounded-xl"]:hover {
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+/* Primary buttons: gradient fill, inner highlight, soft glow */
+button[class~="bg-primary"] {
+  background-image: linear-gradient(135deg, hsl(158 84% 36%), hsl(var(--primary)));
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / 0.2),
+    0 6px 16px -8px hsl(var(--primary) / 0.5);
+  transition: transform 150ms ease, box-shadow 200ms ease, filter 200ms ease, opacity 200ms ease;
+}
+
+button[class~="bg-primary"]:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / 0.25),
+    0 10px 22px -8px hsl(var(--primary) / 0.55);
+}
+
+button[class~="bg-primary"]:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(0.97);
+}
+
+/* Text fields */
+textarea,
+input:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]) {
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+textarea:focus,
+input:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus {
+  border-color: hsl(var(--primary) / 0.6);
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.14);
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: hsl(var(--muted-foreground) / 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  button[class~="bg-primary"]:hover:not(:disabled) { transform: none; }
 }

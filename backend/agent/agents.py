@@ -110,12 +110,12 @@ class ProcurementSupervisor:
 # Run directly for a quick test:  python -m agent.agents   (from the backend/ folder)
 if __name__ == "__main__":
     sample_request = """
-    Purchase Request — Aldermoor Industries Global Procurement:
+    Purchase Request — Ravenholt Industries Global Procurement:
     - Vendor: Takumi Controls Europe B.V. (Netherlands)
-    - Item: Industrial PLC Controllers + HMI Panels (Qty: 200) for the Aldermoor filling line
+    - Item: Industrial PLC Controllers + HMI Panels (Qty: 200) for the Ravenholt filling line
     - Total Cost: 480,000 EUR
     - Origin: JP (Japan)
-    - Destination: DE (Aldermoor Industries, Hamburg, Germany)
+    - Destination: DE (Ravenholt Industries, Hamburg, Germany)
     - FX Rate quoted: 1 EUR = 163.5 JPY
     """
     memo = ProcurementSupervisor().run_audit(sample_request)

@@ -21,7 +21,7 @@ def save(file_path: str, filename: str) -> str:
         raise LLMNotConfiguredException("File upload is only available in local mode.")
 
     os.makedirs(settings.local_upload_dir, exist_ok=True)
-    stored_at = os.path.join(settings.local_upload_dir, file_path)
+    stored_at = os.path.join(settings.local_upload_dir, filename)
     shutil.copyfile(file_path, stored_at)
     return stored_at
 

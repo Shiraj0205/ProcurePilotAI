@@ -5,7 +5,7 @@
 Two entry points share the same steps:
   * ingest_pdf()          - one PDF on disk (used by the upload endpoint)
   * ingest_stored_pdfs()  - every PDF in the document store
-                            (local: .meridian/uploads/, cloud: the GCS bucket)
+                            (local: .procurement_data/uploads/, cloud: the GCS bucket)
 """
 import hashlib
 from langchain_community.document_loaders import PyPDFLoader
