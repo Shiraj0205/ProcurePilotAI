@@ -1,5 +1,6 @@
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, FileResponse
@@ -62,6 +63,25 @@ async def ingestion_error(_: Request, exc: IngestionException):
         content={ "detail" : str(exc) }
         )
 
+
+# Serve the built React frontend (frontend/dist) from the same port as the API.
+# Registered after the API routers so /api/* routes take precedence.
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+
+if FRONTEND_DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_frontend(full_path: str):
+        """Serve static files from dist, falling back to index.html for client-side routes."""
+        if full_path.startswith("api/"):
+            return JSONResponse(status_code=404, content={"detail": "Not Found"})
+        file_path = FRONTEND_DIST / full_path
+        if full_path and file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(FRONTEND_DIST / "index.html")
+else:
+    logger.warning("Frontend build not found, serving API only", path=str(FRONTEND_DIST))
 
 
 # uv run uvicorn api.main:app --app-dir backend --port 8001

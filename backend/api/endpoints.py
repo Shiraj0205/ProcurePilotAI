@@ -75,6 +75,15 @@ def system_status():
             "python_version": sys.version.split()[0],
             "platform": platform.system(),
         },
+        "gcp": {
+            "project_id": settings.GCP_PROJECT if cloud else "not used (local mode)",
+            "region": settings.GCP_REGION if cloud else "-",
+        },
+        "storage": {
+            "location": document_store.location(),
+            "gcs_bucket": settings.GCS_BUCKET_NAME if cloud else "-",
+            "gcs_prefix": settings.GCS_PREFIX if cloud else "-",
+        },
         "vector_search": {
             "backend": "Vertex AI Vector Search" if cloud else "Chroma (local disk)",
             "index_id": (settings.vector_search_index_id or "NA") if cloud else settings.chroma_dir,
@@ -109,11 +118,11 @@ def run_audit(request: AuditRequest) -> AuditResponse:
         AuditResponse: _description_
     """
     try:
-        return AuditResponse(**get_supervisor().run_audit(request))
+        return AuditResponse(**get_supervisor().run_audit(request.request_text))
     except ProcurementPilotAIException:
         raise
     except Exception as e:
-        log.exception("RAG query failed")
+        log.exception("Audit failed")
         raise HTTPException(status_code=500, detail=str(e))
 
 

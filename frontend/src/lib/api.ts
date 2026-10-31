@@ -1,5 +1,6 @@
 /**
  * api.ts — Centralized API client for the FastAPI backend.
+ * only file that talks to the server. One helper does the fetch and turns a failed reply into an error with the server's own message.
  */
 
 const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:8080" : "");

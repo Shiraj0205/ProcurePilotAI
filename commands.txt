@@ -41,3 +41,39 @@ uv run uvicorn api.main:app --app-dir backend --port 8001
     cd frontend
     npm install
     npm run dev
+
+
+# Docker Build Commands
+    -- Build the Image
+    docker build -t procurepilot-ai .
+    
+    -- See the Image
+    docker images procurepilot-ai
+
+    -- Run a container
+    docker run -d --name procurepilot -p 8080:8080 --env-file .env procurepilot-ai
+
+    -- Running Container
+    docker ps
+    docker logs procurepilot
+
+    curl http://localhost:8080/api/health
+
+    docker stop procurepilot
+    docker rm procurepilot
+
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ List all containers, including stopped ones │ docker ps -a             │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ List images                                 │ docker images            │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ Stop a container without deleting it        │ docker stop procurepilot │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ Delete all stopped containers               │ docker container prune   │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ Delete untagged (dangling) images           │ docker image prune       │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ Delete all images no container uses         │ docker image prune -a    │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
+    │ Clear the build cache                       │ docker builder prune     │
+    ├─────────────────────────────────────────────┼──────────────────────────┤
